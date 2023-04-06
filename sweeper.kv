@@ -1,0 +1,85 @@
+ScreenManagement:
+    HomePage:
+    GamePage:
+
+<HomePage>: # This is the home page
+    name: 'home'
+    easy: easy
+    medium: medium
+    hard: hard
+    GridLayout:
+        cols: 1
+
+        Label:
+            text:"MineSweeper"
+            font_size:50
+            font_color: 0,0,0,1
+
+        GridLayout:
+            cols:1
+            GridLayout:
+                cols:3
+                ToggleButton:
+                    id:easy
+                    background_color:
+                    text: "Easy"
+                    group: 'difficulty'
+                    on_press: root.diff = 'e'
+
+                ToggleButton:
+                    id:medium
+                    text: "Medium"
+
+                    group: 'difficulty'
+                    on_press: root.diff = 'm'
+
+                ToggleButton:
+                    id:hard
+                    text: "Hard"
+
+                    group: 'difficulty'
+                    on_press:root.diff='h'
+            Button:
+                text: "Start"
+                on_release:
+                    root.start()
+                    app.difficulty = root.diff
+                    root.manager.current = 'game'
+                    root.manager.transition.direction = 'left'
+
+
+
+
+
+<GamePage>: # This is the game page
+    size_hint: 1, 1
+    name: 'game'
+    GridLayout:
+        cols: 1
+        GridLayout:
+            size_hint_y: 0.1
+            size_hint_x: 1
+            cols:4
+            height: 5
+            Label:
+                size_hint: 1,1
+                name:'time'
+                text:"0"
+                color:1,0,0,1
+
+            Image:
+                source:ur.urlopen("https://i.imgur.com/1Z1Z1Z1.png").read()
+                text:'Smile'
+                size_hint_x:0.5
+            Button:
+                text:'Flag'
+                size_hint_x:0.5
+            Label:
+                name:'bombCount'
+                text:'0'
+                background_color:0,0,0,0
+                color:1,0,0,1
+        GridLayout:
+            name:'field'
+
+
