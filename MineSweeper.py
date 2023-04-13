@@ -77,7 +77,7 @@ class MineSweeper:
 
         if self.MineField[x][y] == "b":
             self.hit_bomb=True
-        elif self.MineField[x][y] == "f":
+        elif self.MineField_state[x][y] == "🚩":
             pass
         elif isinstance(self.MineField[x][y], int) and self.MineField[x][y] != 0:
             self.MineField_state[x][y] = self.MineField[x][y]
@@ -87,7 +87,7 @@ class MineSweeper:
                 j = dy[dx.index(i)]
                 for k in [i - 1, i, i + 1]:
                     for l in [j - 1, j, j + 1]:
-                        if k == -1 or l == -1 or k == s or l == s or self.MineField_state[k][l] == 'f' or self.MineField[k][
+                        if k == -1 or l == -1 or k == s or l == s or self.MineField_state[k][l] == "🚩" or self.MineField[k][
                             l] == 'b':
                             pass
 
@@ -104,10 +104,10 @@ class MineSweeper:
     def Delete(self,x,y):
         self.select_delete_Value(x,y,self.size)
     def flag(self,x, y):
-        if self.MineField_state[x][y] == "f":
+        if self.MineField_state[x][y] == "🚩":
             self.MineField_state[x][y] = "-"
         else:
-            self.MineField_state[x][y] = "f"
+            self.MineField_state[x][y] = "🚩"
 
     def printMineField(self,field):
         for a in field:

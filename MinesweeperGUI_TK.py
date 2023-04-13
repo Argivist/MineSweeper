@@ -3,7 +3,7 @@ from MineSweeper import MineSweeper
 
 MineSweeper_game=MineSweeper("m")
 
-currect_select_state="d"
+currect_select_state="f"
 
 
 def buttonPressed(x, y):
@@ -13,7 +13,6 @@ def buttonPressed(x, y):
         MineSweeper_game.flag(x,y)
     for i in grid_buttons:
         i.configure(text=MineSweeper_game.MineField_state[int(grid_buttons.index(i)/MineSweeper_game.size)][grid_buttons.index(i)%MineSweeper_game.size])
-    MineSweeper_game.printMineField(MineSweeper_game.MineField_state)
 
 
 gameButtons=[]
