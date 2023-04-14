@@ -10,6 +10,10 @@ class MineSweeper:
     hit_bomb=False#has player hit a bomb
     size=0
 
+    flag_= "🚩"
+    blank="🫓"
+    bomb="b"
+
     Difficulty = {
         "e": [7, 10],
         "m": [10, 12],
@@ -18,8 +22,9 @@ class MineSweeper:
     #initiagor constructor
     def __init__(self,diff):
         self.size = self.Difficulty[diff][0]
-        Bomb_num = self.Difficulty[diff][1]
-        self.MineGenerate(self.size, Bomb_num)
+        self.cell_num=self.size*self.size
+        self.bomb_num = self.Difficulty[diff][1]
+        self.MineGenerate(self.size, self.bomb_num)
 
 
 
@@ -32,7 +37,7 @@ class MineSweeper:
             row_state = []
             for j in range(size):
                 row.append("")
-                row_state.append("-")
+                row_state.append(self.blank)
             self.MineField.append(row)
             self.MineField_state.append(row_state)
 
@@ -77,7 +82,7 @@ class MineSweeper:
 
         if self.MineField[x][y] == "b":
             self.hit_bomb=True
-        elif self.MineField_state[x][y] == "🚩":
+        elif self.MineField_state[x][y] == self.flag_:
             pass
         elif isinstance(self.MineField[x][y], int) and self.MineField[x][y] != 0:
             self.MineField_state[x][y] = self.MineField[x][y]
@@ -87,27 +92,29 @@ class MineSweeper:
                 j = dy[dx.index(i)]
                 for k in [i - 1, i, i + 1]:
                     for l in [j - 1, j, j + 1]:
-                        if k == -1 or l == -1 or k == s or l == s or self.MineField_state[k][l] == "🚩" or self.MineField[k][
-                            l] == 'b':
+                        if k == -1 or l == -1 or k == s or l == s or self.MineField_state[k][l] == self.flag_ or self.MineField[k][
+                            l] == 'b' or self.MineField_state=="":
                             pass
 
                         elif self.MineField[k][l] == 0:
-                            if self.MineField_state[k][l] == "-":
+                            if self.MineField_state[k][l] == self.blank:
                                 dx.append(k)
                                 dy.append(l)
                                 self.MineField_state[k][l] = ""
                                 self.cleared+=1
-                        else:
+                        elif isinstance(self.MineField[x][y], int) and self.MineField[x][y] >= 0 and self.MineField_state[k][l] == self.blank:
                             self.MineField_state[k][l] = self.MineField[k][l]
                             self.cleared+=1
+                        else:
+                            pass
     #Destroying cells
     def Delete(self,x,y):
         self.select_delete_Value(x,y,self.size)
     def flag(self,x, y):
-        if self.MineField_state[x][y] == "🚩":
-            self.MineField_state[x][y] = "-"
+        if self.MineField_state[x][y] == self.flag_:
+            self.MineField_state[x][y] = self.blank
         else:
-            self.MineField_state[x][y] = "🚩"
+            self.MineField_state[x][y] =self.flag_
 
     def printMineField(self,field):
         for a in field:
