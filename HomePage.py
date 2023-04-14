@@ -20,5 +20,3 @@ class HomePage:
     def play(self,diff):
         self.HomeScreen.destroy()
         Game.Game(diff)
-
-h=HomePage()

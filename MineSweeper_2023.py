@@ -1,0 +1,2 @@
+import HomePage
+HomePage.HomePage()
